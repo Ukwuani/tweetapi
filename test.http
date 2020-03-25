@@ -1,0 +1,10 @@
+POST  http://localhost:5644/api/tweet  HTTP/1.1
+content-type: application/json
+
+{
+    "text": "How Come",
+    "msgType": "txt",
+    "data": "tweet",
+    "sender": "drey",
+    "imgUrl": "hhhhhj"
+}
