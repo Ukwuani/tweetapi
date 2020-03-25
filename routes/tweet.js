@@ -1,9 +1,10 @@
-const { tweet, getTweet, comment,  deleteTweet } = require(`${global.$_ctrla}/tweetctrl`)
+const { tweet, getTweet, getTweetWithHash, comment,  deleteTweet } = require(`${global.$_ctrla}/tweetctrl`)
 
 module.exports = router => {
     router.post('/tweet', tweet)
-    router.get('/tweet/:hash', getTweet)
     router.post('/tweet/:hash', comment)
+    router.get('/tweet/hash/:hash', getTweetWithHash)
+    router.get('/tweet/hash/:hash/:skip', getTweetWithHash)
     router.delete('/tweet/:hash', deleteTweet)
     // TODO modify 
     //  TODO delete

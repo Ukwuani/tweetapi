@@ -1,10 +1,29 @@
-POST  http://localhost:5644/api/tweet  HTTP/1.1
+# CREATING A TWEET___________________________
+# POST  http://localhost:5644/api/tweet  HTTP/1.1
+# content-type: application/json
+
+# {
+#     "text": "How Come",
+#     "msgType": "txt",
+#     "data": "tweet",
+#     "sender": "drey",
+#     "imgUrl": "hhhhhj"
+# }
+
+
+# GET TWEET COMMENTS BY TWEETID___________
+GET  http://localhost:5644/api/tweet/hash/5e7b344788e7f932f3d10330/0  HTTP/1.1
 content-type: application/json
 
-{
-    "text": "How Come",
-    "msgType": "txt",
-    "data": "tweet",
-    "sender": "drey",
-    "imgUrl": "hhhhhj"
-}
+
+# CREATE A COMMENT
+# POST  http://localhost:5644/api/tweet  HTTP/1.1
+# content-type: application/json
+
+# {
+#     "text": "How Come",
+#     "msgType": "txt",
+#     "data": "tweet",
+#     "sender": "drey",
+#     "imgUrl": "hhhhhj"
+# }

@@ -19,7 +19,7 @@ module.exports = class {
                 params: {
                     tweetData
                 }
-            }, async (err, results) => {
+            }, async function (err, results) {
                 if (err) {
                     console.error('Error saving new node to database:', err)
                     return res.json({
@@ -43,36 +43,63 @@ module.exports = class {
 
 
     //GET A TWEET_________________________________________
-    async getTweet(query) {
+    async getTweetWithHash(queryData, res) {
         try {
-            // const tweetData =  await graphdb.find(query)
-            return {
-                // tweetData,
-                status: 2000,
-                success: true
-            }
+            await db.cypher({
+                query: 'MATCH (n: Tweet{_hash:{hash}}) -[:TWEETAT]->(t: Tweet)  Return t SKIP {skip} LIMIT 20',
+                params:  {
+                    hash: queryData.hash,
+                    skip: queryData.skip
+                }
+            },  async function (err, results) {
+                if (err) {
+                    return res.json({
+                        status:1000,
+                        success: false
+                    })
+                }
+                return res.json({
+                    data: results,
+                    status:2000,
+                    success:true
+                })
+            })
         } catch (err) {
-            return {
+            return res.json({
                 status: 1000,
                 success: false
-            }
+            })
         }
     }
 
 
-    async comment(tweet) {
+    // COMMENT ON A TWEET______________________________
+    async comment(tweetData, res) {
         try {
-            // const tweetData =  await graphdb.find(query)
-            return {
-                // tweetData,
-                status: 2000,
-                success: true   
-            }
+            await db.cypher({
+                query: 'MATCH (n: Tweet {_hash: {hash}})  Merge (t)-[:TWEETAT]->  (t: Tweet {data}}  ) RETURN t',
+                params:  {
+                    hash:tweetData.hash,
+                    data: tweetData.data
+                }
+            },  async function (err, results) {
+                if (err) {
+                    return res.json({
+                        status:err,
+                        success: false
+                    })
+                }
+                return res.json({
+                    data: results,
+                    status:2000,
+                    success:true
+                })
+            })
         } catch (err) {
             return {
-                status: 1000,
+                status: err,
                 success: false
             }
         }
     }
-    }
+}

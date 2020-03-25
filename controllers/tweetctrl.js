@@ -9,15 +9,25 @@ module.exports =  {
     },
 
     async getTweet( req, res) {
-        req.query._hash = req.params.hash
-        const response = await _tweetRepo.getTweet(req.query)
-        res.json(response)
+        await _tweetRepo.getTweetWithHash(req.params.hash, res)
+    },
+
+    async getTweetWithHash( req, res) {
+        let skip = 20 * (req.params.skip)
+        const query={
+            hash: req.params.hash,
+            skip
+        }
+        // res.json(query)
+        await _tweetRepo.getTweetWithHash(query, res)
     },
 
     async comment (req, res) {
-        req.body._hash = req.params.hash
-        const response = await _tweetRepo.comment(req.body)
-        res.json(response)
+        const tweetData= {
+            hash: req.params.hash,
+            data: req.body
+        }
+        await _tweetRepo.comment(tweetData)
     },
 
     async deleteTweet(req, res) {
